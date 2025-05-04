@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI医師</title>
+</head>
+<body>
+  <h1>AI医師に質問する</h1>
+  <textarea id="user-input" rows="5" cols="50" placeholder="症状などを入力してください..."></textarea><br>
+  <button onclick="sendQuestion()">送信</button>
+  <h2>回答:</h2>
+  <pre id="response"></pre>
+
+  <script>
+    async function sendQuestion() {
+      const input = document.getElementById("user-input").value;
+      const res = await fetch("/.netlify/functions/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input })
+      });
+      const data = await res.json();
+      document.getElementById("response").textContent = data.reply || "エラーが発生しました。";
+    }
+  </script>
+</body>
+</html>
