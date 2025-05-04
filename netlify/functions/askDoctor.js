@@ -9,8 +9,27 @@ const openai = new OpenAIApi(configuration);
 // サーバーレス関数のエントリーポイント
 exports.handler = async (event, context) => {
   try {
+    // リクエストボディの内容をロギング
+    console.log("Request body:", event.body);
+    
     // POSTリクエストで送られたデータを取得
-    const body = JSON.parse(event.body);
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "リクエストボディが空です。" }),
+      };
+    }
+
+    let body;
+    try {
+      body = JSON.parse(event.body); // JSONパースの処理
+    } catch (error) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "無効なJSONフォーマットです。" }),
+      };
+    }
+
     const userQuestion = body.question;
 
     if (!userQuestion) {
@@ -22,7 +41,7 @@ exports.handler = async (event, context) => {
 
     // OpenAIのAPIを呼び出して質問に対する回答を生成
     const completion = await openai.createCompletion({
-      model: "text-davinci-003",  // GPT-3モデル
+      model: "text-davinci-003",
       prompt: userQuestion,
       max_tokens: 150,
       temperature: 0.7,
