@@ -14,6 +14,7 @@ exports.handler = async (event, context) => {
     
     // POSTリクエストで送られたデータを取得
     if (!event.body) {
+      console.error("Error: Request body is empty.");
       return {
         statusCode: 400,
         body: JSON.stringify({ error: "リクエストボディが空です。" }),
@@ -23,7 +24,9 @@ exports.handler = async (event, context) => {
     let body;
     try {
       body = JSON.parse(event.body); // JSONパースの処理
+      console.log("Parsed body:", body);
     } catch (error) {
+      console.error("Error: Invalid JSON format", error);
       return {
         statusCode: 400,
         body: JSON.stringify({ error: "無効なJSONフォーマットです。" }),
@@ -33,6 +36,7 @@ exports.handler = async (event, context) => {
     const userQuestion = body.question;
 
     if (!userQuestion) {
+      console.error("Error: No question provided.");
       return {
         statusCode: 400,
         body: JSON.stringify({ error: "質問が送信されていません。" }),
@@ -40,12 +44,15 @@ exports.handler = async (event, context) => {
     }
 
     // OpenAIのAPIを呼び出して質問に対する回答を生成
+    console.log("Sending request to OpenAI with prompt:", userQuestion);
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: userQuestion,
       max_tokens: 150,
       temperature: 0.7,
     });
+
+    console.log("OpenAI response:", completion.data);
 
     const answer = completion.data.choices[0].text.trim();
 
