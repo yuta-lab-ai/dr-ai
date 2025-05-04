@@ -14,15 +14,16 @@
 
   <script>
     async function sendQuestion() {
-      const input = document.getElementById("user-input").value;
-      const res = await fetch("/.netlify/functions/ask", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input })
-      });
-      const data = await res.json();
-      document.getElementById("response").textContent = data.reply || "エラーが発生しました。";
-    }
+  const input = document.getElementById("user-input").value;
+  const res = await fetch(`${window.location.origin}/.netlify/functions/askDoctor`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: input })
+  });
+  const data = await res.json();
+  document.getElementById("response").textContent = data.reply || "エラーが発生しました。";
+}
+
   </script>
 </body>
 </html>
