@@ -18,6 +18,7 @@
   "homepage": "https://github.com/yuta-lab-ai/dr-ai#readme",
   "description": "",
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "openai": "^4.97.0"
   }
 }
