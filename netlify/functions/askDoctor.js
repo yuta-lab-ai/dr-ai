@@ -33,7 +33,8 @@ exports.handler = async (event, context) => {
       };
     }
 
-    const userQuestion = body.question;
+    const userQuestion = body.message;
+
 
     if (!userQuestion) {
       console.error("Error: No question provided.");
