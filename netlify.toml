@@ -2,6 +2,9 @@
   functions = "netlify/functions"
   publish = "."
 
+[functions]
+  node_bundler = "esbuild"  # ← これを必ず追加！
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
