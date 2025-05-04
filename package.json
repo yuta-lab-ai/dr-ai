@@ -1,0 +1,23 @@
+{
+  "name": "secure_medical_ai_webapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuta-lab-ai/dr-ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuta-lab-ai/dr-ai/issues"
+  },
+  "homepage": "https://github.com/yuta-lab-ai/dr-ai#readme",
+  "description": "",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
